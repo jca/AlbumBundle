@@ -1,0 +1,43 @@
+{% extends 'JccAlbumBundle:Admin:index.html.twig' %}
+
+{% set title = 'Tag: ' ~ tag.name %}
+
+{% block body %}
+
+    <div class="row">
+        {% if tag.id %}
+        <div class="col-md-4">
+            <a href="{{ path('tag_view', {hash: tag.hash, slug: tag.slug}) }}" class="btn btn-success">
+                <span class="glyphicon glyphicon-new-window"></span> Sharing is caring!
+            </a>
+        </div>
+        {% endif %}
+        <div class="col-md-8">
+            {{ form(form, {action:path('admin_tag_edit', {id:tag.id}) }) }}
+        </div>
+    </div>
+
+    <div class="row">
+    {% for picture in pictures %}
+        <div class="pull-left">
+            <a class="img-thumbnail" href="{{ path('picture', {'mode' : 'fit', 'width' : '1024', 'height' : '780', 'hash' : picture.hash }) }}"
+               data-src="{{ picture.path }}" data-picture="{{ picture.hash }}" data-tags="{{ picture.tagHashes|join(',') }}">
+                <img src="{{ path('picture', {'mode' : 'crop', 'width' : '200', 'height' : '200', 'hash' : picture.hash }) }}" class="sz200x200" />
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+{% block slideshow_controls %}
+    {% for k,t in tags %}
+        <a class="tag btn btn-default {% if k == 0 %}new-group{% endif %}"
+           href="{{ path('admin_tag_picture', {'pic' : 'XXX', 'tag' : t.hash, 'state' : 'YYY'}) }}"
+           title="{{ t.name }}" data-hash="{{ t.hash }}">
+            <span class="glyphicon glyphicon-{{ t.class }}"></span>
+        </a>
+    {% endfor %}
+    <a class="download btn btn-warning new-group" data-href="{{ path('download', {'hash' : 'XXX'}) }}" title="Download original file">
+         <span class="glyphicon glyphicon-download"></span>
+    </a>
+{% endblock %}

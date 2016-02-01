@@ -1,0 +1,21 @@
+{% extends 'JccAlbumBundle:Admin:index.html.twig' %}
+
+{% set title = 'All tags' %}
+
+{% block body %}
+<ul class="nav jca-sidenav">
+    <li>
+            <a href='{{ path('admin_tag_edit') }}'>
+                <span class="glyphicon glyphicon-new"></span>New tag
+            </a>
+    </li>
+    {% for tag in tags %}
+        <li>
+            <a href='{{ path('admin_tag_edit', {id: tag.id, slug: tag.slug}) }}'>
+                <span class="glyphicon glyphicon-{{tag.class}}"></span>{{ tag.name }}</a>
+        </li>
+    {% else %}
+        <li>No tags</li>
+    {% endfor %}
+</ul>
+{% endblock %}

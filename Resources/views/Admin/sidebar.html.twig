@@ -1,0 +1,20 @@
+{% set depth = 0 %}
+<ul class="nav jca-sidenav">
+    <li>
+        <a href="{{ path('admin_tags') }}">All tags</a>
+    </li>
+    {% for folder in folders %}
+        <li>
+            {% if(folder.depth) > depth %}
+            <ul class="nav"><li>
+            {% endif %}
+
+            <a href='{{ path('admin_folder', {'path' : folder.path}) }}'>{{ folder.name }}</a>
+
+            {% if(folder.depth) < depth %}
+                </li></ul>
+            {% endif %}
+        </li>
+        {% set depth = folder.depth %}
+    {% endfor %}
+</ul>

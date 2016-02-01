@@ -1,0 +1,28 @@
+{% extends 'JccAlbumBundle:Default:index.html.twig' %}
+
+{% set title = tag.name %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+
+    <div class="row">
+    {% for picture in pictures %}
+        <div class="pull-left">
+            <a class="img-thumbnail" href="{{ path('picture', {'mode' : 'fit', 'width' : '1024', 'height' : '780', 'hash' : picture.hash }) }}"
+               data-src="{{ picture.path }}" data-picture="{{ picture.hash }}">
+                <img src="{{ path('picture', {'mode' : 'crop', 'width' : '200', 'height' : '200', 'hash' : picture.hash }) }}" class="sz200x200" />
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+{% block slideshow_controls %}
+    {# Add conditional tag controls (remove, sort, !comment) #}
+    <a class="download btn btn-warning new-group" data-href="{{ path('download', {'hash' : 'XXX'}) }}" title="Download original file">
+         <span class="glyphicon glyphicon-download"></span>
+    </a>
+{% endblock %}

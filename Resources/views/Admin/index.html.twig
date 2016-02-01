@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title|default('Pictures') }}</title>
+        <link rel="shortcut icon" href="/assets/images/favicon.png">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+        {% stylesheets filter='cssrewrite'
+            'assets/highslide-4.1.13/highslide.css'
+            'assets/bootstrap-3.0.2/css/bootstrap.min.css'
+            'assets/main.css'
+            'assets/admin.css'
+        %}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+
+    </head>
+    <body >
+        <div class="container">
+            <h1>{{ title|default('Pictures') }}</h1>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ render(controller("JccAlbumBundle:Admin:sidebar", {path: app.request.attributes.get('path')})) }}
+                </div>
+                <div class="col-md-9">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="slideshow hidden">
+            <div class="picture">
+                <img src="{{ asset('assets/images/loading.gif') }}">
+                <div class="controls-container">
+                <div class="controls">
+                    <a href="#prev" class="btn btn-primary prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                    <a href="#next" class="btn btn-success play"><span class="glyphicon glyphicon-play"></span></a>
+                    <a href="#next" class="btn btn-primary next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    {% block slideshow_controls %}{% endblock %}
+                    <a href="#close" class="btn btn-danger ssclose new-group"><span class="glyphicon glyphicon-remove"></span></a>
+                </div>
+                </div>
+            </div>
+            <div class="hidden">
+                <img class="prevloader" src="{{ asset('assets/images/loading.gif') }}">
+                <img class="nextloader" src="{{ asset('assets/images/loading.gif') }}">
+            </div>
+        </div>
+
+        {% javascripts
+            'assets/jquery-1.7.1.min.js'
+            'assets/bootstrap-3.0.2/js/bootstrap.min.js'
+            'assets/hammer.js'
+            'assets/main.js'
+            'assets/admin.js'
+        %}
+
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </body>
+</html>
