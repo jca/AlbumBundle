@@ -1,5 +1,10 @@
 # AlbumBundle
 
+**This repository is no longer supported. You can use [webelop/album-bundle](https://github.com/webelop/album-bundle/) with Composer instead:**
+```
+composer install webelop/album-bundle
+```
+
 ## What does this Symfony2 bundle do?
 
 Album bundle is an still experimental lightweight photo management system that allows 
